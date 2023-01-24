@@ -1,1 +1,75 @@
+namespace DesignPatterns;
+class Program
+{
+    static void Main(string[] args)
+    {
+
+
+
+
+    }
+}
+public class Client
+{
+    private Packaging _packaging;
+    private Document delivery_doc;
+
+    public Client (PackDelFactory factory)
+    {
+        _packaging = factory.CreatePackaging();
+        delivery_doc = factory.CreateDocument();
+    }
+
+    public Packaging ClientPackaging
+    {
+        get { return _packaging; }
+    }
+    public Document ClientDocument
+    {
+        get { return delivery_doc; }
+    }
+
+}
+
+public abstract class PackDelFactory
+{
+    public abstract Packaging CreatePackaging();
+    public abstract Document CreateDocument();
+
+}
+
+public class StandardFactory : PackDelFactory
+{
+    public override Packaging CreatePackaging()
+    {
+       return new StandardPack();
+    }
+
+    public override Document CreateDocument()
+    {
+       return new Postal();
+    }
+
+}
+public class DelicateFactory: PackDelFactory
+{
+    public override Packaging CreatePackaging()
+    {
+        return new DoublePack();
+    }
+    public override Document CreateDocument()
+    {
+        return new Courier();
+    }
+}
+
+public abstract class Packaging { }
+
+public class StandardPack : Packaging { }
+public class DoublePack : Packaging { }
+
+public abstract class Document { }
+
+public class Postal : Document { }
+public class Courier : Document { }
 
